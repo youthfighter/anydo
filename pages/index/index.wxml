@@ -1,36 +1,40 @@
 <!--index.wxml-->
 <view class="date-list">
-  <view class="as-flex-box date-list-item">
-    <view class='flex-1'>今日</view>
-    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
-  </view>
-  <view class='task-list'>
-    <view wx:for="{{todayTask}}" wx:for-item="item" class='task-list-item' style='{{item.detailFlag == true ? "border:none" : "border:1px soild #f0f0f0"}}'>
-      <view>
-        <view class='text-2'>{{item.content}}</view>
-        <view class='text-3' wx:if="{{item.detailFlag}}" data-abc="{{item.detailFlag}}">
-          <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+  <view wx:for="{{tasks}}" wx:for-item="task" wx:for-index="type">
+    <view class="as-flex-box date-list-item">
+      <view class='flex-1' bindtap='toggleDate' data-type='{{type}}'>{{task.label}}</view>
+      <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+    </view>
+    <view class='task-list' wx:if='{{task.detailFlag}}'>
+      <view wx:for="{{task.task}}" 
+      wx:for-item="item" 
+      class='task-list-item' 
+      style='{{item.detailFlag == true ? "border:none" : "border-bottom:1px solid #f0f0f0"}}'
+      >
+        <view bindtap='toggleTask' data-index='{{index}}' data-type='{{type}}'>
+          <view class='text-2'>{{item.content}}</view>
+          <view class='text-3'>
+            <view wx:if="{{item.detailFlag}}">
+              <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='as-flex-box' style="margin-top:0.5rem" wx:if="{{item.detailFlag}}">
+          <view class='flex-1 control-icon'>
+            <image src='../../static/images/edit.png'></image>
+          </view>
+          <view class='flex-1 control-icon'>
+            <image src='../../static/images/type.png'></image>
+          </view>
+          <view class='flex-1 control-icon'>
+            <image src='../../static/images/notice.png'></image>
+          </view>
+          <view class='flex-1 control-icon'>
+            <image src='../../static/images/email.png'></image>
+          </view>
         </view>
       </view>
-      <view class='as-flex-box'>
-        <view class='flex-1'></view>
-        <view class='flex-1'></view>
-        <view class='flex-1'></view>
-        <view class='flex-1'></view>
-      </view>
     </view>
-  </view>
-  <view class="as-flex-box date-list-item">
-    <view class='flex-1'>明日</view>
-    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
-  </view>
-  <view class="as-flex-box date-list-item">
-    <view class='flex-1'>即将来临</view>
-    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
-  </view>
-  <view class="as-flex-box date-list-item">
-    <view class='flex-1'>以后再说</view>
-    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
   </view>
   <!--添加任务-->
   <view class='plus' bindtap="showModal">+</view>
