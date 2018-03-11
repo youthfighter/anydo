@@ -1,0 +1,80 @@
+/**index.wxss**/
+.date-list-item{
+  line-height: 30px;
+  color: #2AA0C6;
+  padding: 0.4rem 1rem;
+  font-weight: bold;
+}
+.task-list{
+  margin-top: 0.5rem;
+}
+.task-list-item{
+  padding: 0 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.plus{
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  line-height: 56px;
+  background-color: #2AA0C6;
+  border-radius: 50%;
+  color: white;
+  font-size: 36px;
+  font-weight: lighter;
+
+}
+.task-content{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: white;
+}
+.content-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  box-shadow: 3px 3px 1px #FCFCFC
+}
+.things{
+  padding: 0 1rem;
+}
+.content-icon{
+  height: 1.0rem;
+  width: 1.0rem;
+  padding: 0.2rem
+}
+.content-icon>image{
+  height: 100%;
+  width: 100%
+}
+.content-body{
+  margin-top: 2.4rem;
+  padding: 1rem;
+}
+.tag{
+  padding: 0.5rem 0;
+}
+.text-1{
+  color: #6C6C6C;
+  padding: 0 10px;
+}
+.text-2{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: break-all;
+  width: 16rem;
+  padding-top: 0.7rem;
+}
+.text-3{
+  font-size: 12px;
+  color: #adadad
+}

@@ -1,0 +1,36 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "ANYDO",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar":{
+    "selectedColor":"#2AA0C6",
+    "color":"#6C6C6C",
+    "list":[
+      {
+        "pagePath":"pages/index/index",
+        "text":"任务",
+        "iconPath":"/static/images/task.png",
+        "selectedIconPath":"/static/images/task-selected.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "日历",
+        "iconPath": "/static/images/calendar.png",
+        "selectedIconPath": "/static/images/calendar-selected.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "设置",
+        "iconPath": "/static/images/settings.png",
+        "selectedIconPath": "/static/images/settings-selected.png"
+      }
+    ]
+  }
+}

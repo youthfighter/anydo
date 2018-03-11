@@ -1,0 +1,84 @@
+<!--index.wxml-->
+<view class="date-list">
+  <view class="as-flex-box date-list-item">
+    <view class='flex-1'>今日</view>
+    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+  </view>
+  <view class='task-list'>
+    <view wx:for="{{todayTask}}" wx:for-item="item" class='task-list-item' style='{{item.detailFlag == true ? "border:none" : "border:1px soild #f0f0f0"}}'>
+      <view>
+        <view class='text-2'>{{item.content}}</view>
+        <view class='text-3' wx:if="{{item.detailFlag}}" data-abc="{{item.detailFlag}}">
+          <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+        </view>
+      </view>
+      <view class='as-flex-box'>
+        <view class='flex-1'></view>
+        <view class='flex-1'></view>
+        <view class='flex-1'></view>
+        <view class='flex-1'></view>
+      </view>
+    </view>
+  </view>
+  <view class="as-flex-box date-list-item">
+    <view class='flex-1'>明日</view>
+    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+  </view>
+  <view class="as-flex-box date-list-item">
+    <view class='flex-1'>即将来临</view>
+    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+  </view>
+  <view class="as-flex-box date-list-item">
+    <view class='flex-1'>以后再说</view>
+    <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+  </view>
+  <!--添加任务-->
+  <view class='plus' bindtap="showModal">+</view>
+  <!--添加任务弹出层-->
+  <view class='task-content' wx:if="{{modalFlag}}">
+    <view class='as-flex-box content-header'>
+      <view class='content-icon' bindtap="hideModal">
+        <image src="../../static/images/close.png"></image>
+      </view>      
+      <view class='flex-1'>
+      <input placeholder="我想..." value="{{task}}" class="things" bindinput="taskChange" focus="{{inputFocus}}" ></input>
+      </view>      
+      <view class='content-icon'>
+        <image src="../../static/images/voice.png" wx-if="{{task===''}}"></image>
+        <image src="../../static/images/checked.png" wx-if="{{task!==''}}" bindtap="saveTask"></image>
+      </view> 
+    </view>
+    <view class='content-body' wx:if="{{task ===''}}">
+      <view class='as-flex-box tag' bindtap='addTag' data-tag='呼叫'>
+        <view class='content-icon'>
+          <image src="../../static/images/call.png"></image>
+        </view>
+        <view class='flex-1 text-1'>呼叫</view>
+      </view>
+      <view class='as-flex-box tag' bindtap='addTag' data-tag='阅读'>
+        <view class='content-icon'>
+          <image src="../../static/images/study.png"></image>
+        </view>
+        <view class='flex-1 text-1'>阅读</view>
+      </view>
+      <view class='as-flex-box tag' bindtap='addTag' data-tag='支付'>
+        <view class='content-icon'>
+          <image src="../../static/images/pay.png"></image>
+        </view>
+        <view class='flex-1 text-1'>支付</view>
+      </view>
+      <view class='as-flex-box tag' bindtap='addTag' data-tag='电子邮件'>
+        <view class='content-icon'>
+          <image src="../../static/images/email.png"></image>
+        </view>
+        <view class='flex-1 text-1'>电子邮件</view>
+      </view>
+      <view class='as-flex-box tag' bindtap='addTag' data-tag='学习'>
+        <view class='content-icon'>
+          <image src="../../static/images/study.png"></image>
+        </view>
+        <view class='flex-1 text-1'>学习</view>
+      </view>
+    </view>
+  </view>
+</view>

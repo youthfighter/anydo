@@ -1,0 +1,14 @@
+/**app.wxss**/
+.as-flex-box{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.flex-1{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.font-weight{
+  font-weight: bold !important;
+}
