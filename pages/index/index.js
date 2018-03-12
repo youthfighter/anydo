@@ -15,6 +15,9 @@ Page({
           { content: '333', type: '个人事务', time: '19:58' },
           { content: '444', type: '个人事务', time: '19:58' }
         ],
+        cancelTask: [
+          { content: '444', type: '个人事务', time: '19:58' }
+        ],
         type: 1,
         label: '今日',
         detailFlag: false

@@ -12,7 +12,7 @@
   border-bottom: 1px solid #f0f0f0;
 }
 .plus{
-  position: absolute;
+  position: fixed;
   right: 20px;
   bottom: 20px;
   height: 60px;
@@ -24,7 +24,7 @@
   color: white;
   font-size: 36px;
   font-weight: lighter;
-
+  box-shadow: 2px 2px 1px #B8B8B8
 }
 .task-content{
   position: absolute;
@@ -84,4 +84,22 @@
 .control-icon image{
   width: 1.4rem;
   height: 1.4rem;
+}
+.cancelTask{
+  color: #adadad;
+  text-decoration:line-through;
+}
+.deleteBtn{
+  width: 1.6rem;
+  height: 1.6rem;
+  position: absolute;
+  right: 0.5rem;
+  top:1rem;
+}
+.revertBtn{
+  width: 1.4rem;
+  height: 1.4rem;
+  position: absolute;
+  right: 2.5rem;
+  top:1.1rem;
 }

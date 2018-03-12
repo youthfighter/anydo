@@ -32,9 +32,29 @@
           <view class='flex-1 control-icon'>
             <image src='../../static/images/email.png'></image>
           </view>
+          <view class='flex-1 control-icon'>
+            <image src='../../static/images/cancel.png'></image>
+          </view>
         </view>
       </view>
     </view>
+    <view class='task-list' wx:if='{{task.detailFlag}}'>
+      <view wx:for="{{task.cancelTask}}" 
+      wx:for-item="item" 
+      class='task-list-item' style='position:relative'>
+        <view data-index='{{index}}' data-type='{{type}}'>
+          <view class='text-2 cancelTask' style='width: 15rem'>{{item.content}}</view>
+          <view class='text-3'>
+            <view wx:if="{{item.detailFlag}}">
+              <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+            </view>
+          </view>
+        </view>
+        <image class='deleteBtn' src='../../static/images/delete.png'></image>
+        <image class='revertBtn' src='../../static/images/revent.png'></image>
+      </view>
+    </view>
+    
   </view>
   <!--添加任务-->
   <view class='plus' bindtap="showModal">+</view>
