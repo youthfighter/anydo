@@ -1,0 +1,29 @@
+/**calendar.wxss**/
+.date-item{
+  height: 3.5rem;
+  width: 2.5rem;
+  margin: 0 0.5rem;
+  text-align: center;
+  display: inline-block;
+}
+.year-mouth{
+  color: #2AA0C6;
+  height: 2rem;
+  line-height: 2rem;
+  text-align: center;
+}
+.date-item-checked{
+  color: #2AA0C6;
+  border-bottom: 2px solid #2AA0C6;
+}
+.wek{
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 12px;
+}
+.day{
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 14px;
+}
+

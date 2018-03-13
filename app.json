@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/calendar/index",
     "pages/logs/logs"
   ],
   "window":{
@@ -20,7 +21,7 @@
         "selectedIconPath":"/static/images/task-selected.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/calendar/index",
         "text": "日历",
         "iconPath": "/static/images/calendar.png",
         "selectedIconPath": "/static/images/calendar-selected.png"

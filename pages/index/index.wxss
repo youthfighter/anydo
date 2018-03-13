@@ -27,7 +27,7 @@
   box-shadow: 2px 2px 1px #B8B8B8
 }
 .task-content{
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
