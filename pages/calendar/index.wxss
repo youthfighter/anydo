@@ -1,8 +1,8 @@
 /**calendar.wxss**/
 .date-item{
-  height: 3.5rem;
-  width: 2.5rem;
-  margin: 0 0.5rem;
+  height: 50px;
+  width: 40px;
+  margin: 0 5px;
   text-align: center;
   display: inline-block;
 }
@@ -17,13 +17,13 @@
   border-bottom: 2px solid #2AA0C6;
 }
 .wek{
-  height: 1.5rem;
-  line-height: 1.5rem;
+  height: 25px;
+  line-height: 25px;
   font-size: 12px;
 }
 .day{
-  height: 1.5rem;
-  line-height: 1.5rem;
+  height: 25px;
+  line-height: 25px;
   font-size: 14px;
 }
 

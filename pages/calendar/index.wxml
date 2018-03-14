@@ -1,6 +1,6 @@
 <view>
   <view class='year-mouth'>2017年7月</view>
-  <scroll-view scroll-x="true" style=" white-space: nowrap">
+  <scroll-view scroll-x="true" style="white-space: nowrap" bindscroll="scrollXHandle" scroll-left='{{scrollLeft}}'>
     <view class='date-item {{cur == index?"date-item-checked":""}}' wx:for="{{timeList}}" wx:for-item="item">
       <view class='wek'>{{item.wek}}</view>
       <view class='day'>{{item.day}}</view>
