@@ -32,7 +32,6 @@ Page({
           let md = new Date(`${curYear}-${i+1}-${j+1}`)
           if (nowDate.getFullYear() === md.getFullYear() && nowDate.getMonth() === md.getMonth() && nowDate.getDate() === md.getDate()) {
             cur = timeList.length
-            console.log(cur)
           }
           timeList.push({
             yearmonth: `${curYear}年${i+1}月`,
@@ -53,7 +52,6 @@ Page({
     let scrollLeft = event.detail.scrollLeft
     let offset = scrollLeft % DATE_ITEM_WIDTH
     let cur = parseInt(scrollLeft / DATE_ITEM_WIDTH)
-    console.log(scrollLeft)
     if (offset > DATE_ITEM_WIDTH / 2) {
       ++cur
     }

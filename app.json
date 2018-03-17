@@ -1,7 +1,9 @@
 {
   "pages":[
     "pages/index/index",
-    "pages/calendar/index"
+    "pages/calendar/index",
+    "pages/settings/settings",
+    "pages/about/about"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -26,7 +28,7 @@
         "selectedIconPath": "/static/images/calendar-selected.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/settings/settings",
         "text": "设置",
         "iconPath": "/static/images/settings.png",
         "selectedIconPath": "/static/images/settings-selected.png"

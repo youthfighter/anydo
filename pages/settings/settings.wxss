@@ -1,0 +1,7 @@
+/* pages/settings/settings.wxss */
+.task-item{
+  padding: 0 1rem;
+  height: 3rem;
+  line-height: 3rem;
+  border-bottom: 1px solid #E8E8E8;
+}

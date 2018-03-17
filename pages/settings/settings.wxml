@@ -1,0 +1,4 @@
+<view class='container'>
+  <view class='task-item'>已完成任务</view>
+  <navigator class='task-item' url='../about/about'>关于</navigator> 
+</view>

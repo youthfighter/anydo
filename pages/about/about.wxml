@@ -1,0 +1,5 @@
+<!--pages/about/about.wxml-->
+<view class='container'>
+  <image src='../../static/images/github.png' class='icon'></image>
+  <view class='address'>https://github.com/youthfighter</view>
+</view>
