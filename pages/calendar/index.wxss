@@ -1,29 +1,50 @@
 /**calendar.wxss**/
+scroll-view{
+  height: 100vh;
+}
 .date-item{
-  height: 50px;
-  width: 40px;
-  margin: 0 5px;
+}
+.date{
+  width: 130px;
   text-align: center;
-  display: inline-block;
+  font-weight: bold;
 }
-.year-mouth{
-  color: #2AA0C6;
-  height: 2rem;
-  line-height: 2rem;
-  text-align: center;
-}
-.date-item-checked{
-  color: #2AA0C6;
-  border-bottom: 2px solid #2AA0C6;
-}
-.wek{
-  height: 25px;
-  line-height: 25px;
+.header{
   font-size: 12px;
+  margin: 1rem 0;
 }
-.day{
-  height: 25px;
-  line-height: 25px;
-  font-size: 14px;
+.line{
+  height: 8px;
+  border-bottom: 1px solid #e0e0e0;
 }
-
+.divide{
+  height: 1px;
+  background-color: #e0e0e0;
+}
+.task-section{
+  padding: 0 10px 0 40px;
+  position: relative;
+}
+.task-content{
+  padding: 10px 0;
+  word-break: break-all;
+}
+.task-item{
+  position: relative;
+}
+.icon{
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 13px;
+  left: 16px;
+}
+.pass-times .task-content{
+  color: #adadad
+}
+.pass-times .date{
+  color: #bebebe;
+}
+.cur-date{
+  color: #2AA0C6 !important;
+}

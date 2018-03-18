@@ -1,0 +1,4 @@
+<view class='container'>
+  <image src='../../static/images/email.png' class='icon'></image>
+  <view class='address'>如您在使用中发现问题，请发送邮件到youthfighter@163。</view>
+</view>

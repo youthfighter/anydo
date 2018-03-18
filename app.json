@@ -1,25 +1,26 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/calendar/index",
     "pages/settings/settings",
-    "pages/about/about"
+    "pages/about/about",
+    "pages/reback/reback"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "ANYDO",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
-  "tabBar":{
-    "selectedColor":"#2AA0C6",
-    "color":"#6C6C6C",
-    "list":[
+  "tabBar": {
+    "selectedColor": "#2AA0C6",
+    "color": "#6C6C6C",
+    "list": [
       {
-        "pagePath":"pages/index/index",
-        "text":"任务",
-        "iconPath":"/static/images/task.png",
-        "selectedIconPath":"/static/images/task-selected.png"
+        "pagePath": "pages/index/index",
+        "text": "任务",
+        "iconPath": "/static/images/task.png",
+        "selectedIconPath": "/static/images/task-selected.png"
       },
       {
         "pagePath": "pages/calendar/index",

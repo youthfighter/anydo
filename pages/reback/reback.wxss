@@ -1,0 +1,12 @@
+/* pages/reback/reback.wxss */
+.container{
+  padding: 3rem 1rem;
+  text-align: center;
+}
+.icon{
+  height: 40px;
+  width: 40px;
+}
+.address{
+  margin: 1rem 0;
+}

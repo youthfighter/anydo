@@ -41,18 +41,7 @@ Page({
           { content: '444', type: '个人事务', time: '19:58' }
         ],
         type: 3,
-        label: '即将来临',
-        detailFlag: false
-      },
-      {
-        task: [
-          { content: '123', type: '个人事务', time: '19:58' },
-          { content: '222', type: '个人事务', time: '19:58' },
-          { content: '333', type: '个人事务', time: '19:58' },
-          { content: '444', type: '个人事务', time: '19:58' }
-        ],
-        type: 4,
-        label: '以后再说',
+        label: '已过期',
         detailFlag: false
       }
     ]
