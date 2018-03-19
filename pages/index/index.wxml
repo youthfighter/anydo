@@ -1,9 +1,13 @@
 <!--index.wxml-->
 <view class="date-list">
-  <view wx:for="{{tasks}}" wx:for-item="task" wx:for-index="type">
+  <view wx:for="{{tasks}}" wx:for-item="task">
     <view class="as-flex-box date-list-item">
-      <view class='flex-1' bindtap='toggleDate' data-type='{{type}}'>{{task.label}}</view>
-      <image style="width: 30px; height: 30px" src="../../static/images/plus.png"></image>
+      <view class='flex-1' bindtap='toggleDate' data-type='{{task.type}}'>{{task.label}}</view>
+      <image wx-if="{{task.type != 0}}" style="width: 30px; height: 30px" 
+        src="../../static/images/plus.png"
+        bindtap="addHandle"
+        data-type="{{task.type}}"
+        ></image>
     </view>
     <view class='task-list' wx:if='{{task.detailFlag}}'>
       <view wx:for="{{task.task}}" 
@@ -57,11 +61,11 @@
     
   </view>
   <!--添加任务-->
-  <view class='plus' bindtap="showModal">+</view>
+  <view class='plus' bindtap="showModalHandle">+</view>
   <!--添加任务弹出层-->
   <view class='task-content' wx:if="{{modalFlag}}">
     <view class='as-flex-box content-header'>
-      <view class='content-icon' bindtap="hideModal">
+      <view class='content-icon' bindtap="hideModalHandle">
         <image src="../../static/images/close.png"></image>
       </view>      
       <view class='flex-1'>
@@ -69,7 +73,7 @@
       </view>      
       <view class='content-icon'>
         <image src="../../static/images/voice.png" wx-if="{{task===''}}"></image>
-        <image src="../../static/images/checked.png" wx-if="{{task!==''}}" bindtap="saveTask"></image>
+        <image src="../../static/images/checked.png" wx-if="{{task!==''}}" bindtap="saveTaskHandle"></image>
       </view> 
     </view>
     <view class='content-body' wx:if="{{task ===''}}">

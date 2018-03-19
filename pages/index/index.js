@@ -6,6 +6,7 @@ Page({
   data: {
     modalFlag:false,
     task:"",
+    dateType:0,
     inputFocus:true,
     tasks: [
       {
@@ -40,7 +41,7 @@ Page({
           { content: '333', type: '个人事务', time: '19:58' },
           { content: '444', type: '个人事务', time: '19:58' }
         ],
-        type: 3,
+        type: 0,
         label: '已过期',
         detailFlag: false
       }
@@ -48,15 +49,23 @@ Page({
 
   },
   //事件处理函数
-  showModal: function() {
+  showModalHandle: function(event) {
+    this.showModal(0)
+  },
+  hideModalHandle: function () {
     this.setData({
-      modalFlag: true
+      modalFlag: false,
+      dateType: 0
     })
   },
-  hideModal: function() {
+  showModal: function (dateType) {
     this.setData({
-      modalFlag: false
+      modalFlag: true,
+      dateType: dateType
     })
+  },
+  addHandle: function(event) {
+    this.showModal(event.target.dataset.type)
   },
   addTag: function(event) {
     let tag = event.currentTarget.dataset.tag;
@@ -92,15 +101,18 @@ Page({
     })
     
   },
-  saveTask: function() {
-    console.log('save',this.data.task);
+  saveTaskHandle: function() {
+    console.log('save',this.data.task, this.data.dateType);
+    this.hideModalHandle();
+    this.setData({
+      'task': ''
+    })
   },
   taskChange: function(e) {
     let value = e.detail.value;
     this.setData({
       task: value
     });
-    console.log(1)
   },
   onLoad: function () {
     
