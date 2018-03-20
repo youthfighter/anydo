@@ -19,7 +19,7 @@ Page({
         cancelTask: [
           { content: '444', type: '个人事务', time: '19:58' }
         ],
-        type: 1,
+        type: 0,
         label: '今日',
         detailFlag: false
       },
@@ -30,7 +30,7 @@ Page({
           { content: '333', type: '个人事务', time: '19:58' },
           { content: '444', type: '个人事务', time: '19:58' }
         ],
-        type: 2,
+        type: 1,
         label: '明日',
         detailFlag: false
       },
@@ -41,7 +41,7 @@ Page({
           { content: '333', type: '个人事务', time: '19:58' },
           { content: '444', type: '个人事务', time: '19:58' }
         ],
-        type: 0,
+        type: 2,
         label: '已过期',
         detailFlag: false
       }
@@ -50,18 +50,19 @@ Page({
   },
   //事件处理函数
   showModalHandle: function(event) {
-    this.showModal(0)
+    this.showModal()
   },
   hideModalHandle: function () {
     this.setData({
       modalFlag: false,
-      dateType: 0
+      dateType: 0,
+      task: ''
     })
   },
   showModal: function (dateType) {
     this.setData({
       modalFlag: true,
-      dateType: dateType
+      dateType: dateType || 0
     })
   },
   addHandle: function(event) {
@@ -76,6 +77,14 @@ Page({
       })
     }
   },
+  //任务编辑
+  editTaskHandle: function (event){
+    let content = event.currentTarget.dataset.content;
+    this.setData({
+      task: content
+    })
+    this.showModal()
+  },
   //点击时间分类
   toggleDate: function(event) {
     let type = event.currentTarget.dataset.type || 0
@@ -88,6 +97,7 @@ Page({
   toggleTask: function(event) {
     let index = event.currentTarget.dataset.index || 0
     let type = event.currentTarget.dataset.type || 0
+    console.log(index, type)
     let key = `tasks[${type}].task`
     this.data.tasks[type].task.forEach((item, i)=>{
       if (i === index) {
@@ -104,9 +114,6 @@ Page({
   saveTaskHandle: function() {
     console.log('save',this.data.task, this.data.dateType);
     this.hideModalHandle();
-    this.setData({
-      'task': ''
-    })
   },
   taskChange: function(e) {
     let value = e.detail.value;

@@ -3,7 +3,7 @@
   <view wx:for="{{tasks}}" wx:for-item="task">
     <view class="as-flex-box date-list-item">
       <view class='flex-1' bindtap='toggleDate' data-type='{{task.type}}'>{{task.label}}</view>
-      <image wx-if="{{task.type != 0}}" style="width: 30px; height: 30px" 
+      <image wx-if="{{task.type != 2}}" style="width: 30px; height: 30px" 
         src="../../static/images/plus.png"
         bindtap="addHandle"
         data-type="{{task.type}}"
@@ -15,7 +15,7 @@
       class='task-list-item' 
       style='{{item.detailFlag == true ? "border:none" : "border-bottom:1px solid #f0f0f0"}}'
       >
-        <view bindtap='toggleTask' data-index='{{index}}' data-type='{{type}}'>
+        <view bindtap='toggleTask' data-index='{{index}}' data-type='{{task.type}}'>
           <view class='text-2'>{{item.content}}</view>
           <view class='text-3'>
             <view wx:if="{{item.detailFlag}}">
@@ -25,7 +25,7 @@
         </view>
         <view class='as-flex-box' style="margin-top:0.5rem" wx:if="{{item.detailFlag}}">
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/edit.png'></image>
+            <image src='../../static/images/edit.png' bindtap='editTaskHandle' data-content='{{item.content}}'></image>
           </view>
           <view class='flex-1 control-icon'>
             <image src='../../static/images/type.png'></image>
