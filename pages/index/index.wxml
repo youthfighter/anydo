@@ -28,16 +28,16 @@
             <image src='../../static/images/edit.png' bindtap='editTaskHandle' data-content='{{item.content}}'></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/type.png'></image>
+            <image src='../../static/images/type.png' bindtap='chooseTypeHandle'></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/time.png'></image>
+            <image src='../../static/images/time.png' bindtap='chooseDateHandle'></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/task-selected.png'></image>
+            <image src='../../static/images/task-selected.png' bindtap='doneTaskHandle'></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/cancel.png'></image>
+            <image src='../../static/images/cancel.png' bindtap='removeTaskHandle'></image>
           </view>
         </view>
       </view>
@@ -54,8 +54,8 @@
             </view>
           </view>
         </view>
-        <image class='deleteBtn' src='../../static/images/delete.png'></image>
-        <image class='revertBtn' src='../../static/images/revent.png'></image>
+        <image class='deleteBtn' src='../../static/images/delete.png' bindtap='deleteTaskHandle'></image>
+        <image class='revertBtn' src='../../static/images/revent.png' bindtap='revertTaskHandle'></image>
       </view>
     </view>
     

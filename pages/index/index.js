@@ -59,6 +59,52 @@ Page({
       task: ''
     })
   },
+  chooseTypeHandle: function() {
+    wx.showActionSheet({
+      itemList: ['个人事务', '工作项目', '杂货列表'],
+      success: function (res) {
+        console.log(res.tapIndex)
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+  chooseDateHandle: function() {
+    wx.showActionSheet({
+      itemList: ['推迟一天', '推迟两天', '推迟一周'],
+      success: function (res) {
+        console.log(res.tapIndex)
+      },
+      fail: function (res) {
+        console.log(res.errMsg)
+      }
+    })
+  },
+  doneTaskHandle: function() {
+    wx.showModal({
+      title: '提示',
+      content: '确认该项任务已完成？',
+      confirmText: "确认",
+      cancelText: "取消",
+      success: function (res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  removeTaskHandle: function() {
+    console.log('remove')
+  },
+  deleteTaskHandle: function() {
+    console.log('delete')
+  },
+  revertTaskHandle: function() {
+    console.log('revert')
+  },
   showModal: function (dateType) {
     this.setData({
       modalFlag: true,
