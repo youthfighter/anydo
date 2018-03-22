@@ -46,7 +46,9 @@ Page({
         detailFlag: false
       }
     ]
-
+  },
+  onLoad: function (options) {
+    console.log(123456)
   },
   //事件处理函数
   showModalHandle: function(event) {
