@@ -16,12 +16,19 @@ App({
         })
       }
     })
+    this.updateUserInfo()
+  },
+  globalData: {
+    userInfo: null
+  },
+  //完善用户信息
+  updateUserInfo: function() {
     wx.authorize({
       scope: 'scope.userInfo',
       success(res) {
         wx.getUserInfo({
           success: res => {
-            console.log(res)
+            console.log(res.encryptedData)
             wx.request({
               url: 'http://127.0.0.1:3000/v1/user',
               method: 'POST',
@@ -33,13 +40,9 @@ App({
                 console.log(err)
               }
             })
-            console.log(res.userInfo)
           }
         })
       }
     })
-  },
-  globalData: {
-    userInfo: null
   }
 })
