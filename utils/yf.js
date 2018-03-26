@@ -1,7 +1,7 @@
 let request = function(options) {
   options.header = options.header || {}
-  let wid = wx.getStorageSync('wid')
-  options.header.Cookie = `wid=${wid}`
+  let token = wx.getStorageSync('token')
+  options.header.authentication = token
   wx.request(options)
 }
 module.exports = {

@@ -11,9 +11,11 @@ App({
           url: `http://127.0.0.1:3000/v1/key?code=${res.code}`,
           method: 'GET',
           success: data=> {
-            wx.setStorageSync('wid', data.data.key)
+            wx.setStorageSync('token', data.data.token)
             console.log(data)
-            self.updateUserInfo()
+            if (!data.data.newUser) {
+              self.updateUserInfo()
+            }            
           },
           fail: err=> {
             console.log(err)
