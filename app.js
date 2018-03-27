@@ -8,12 +8,12 @@ App({
     wx.login({
       success: res => {
         yf.request({
-          url: `http://127.0.0.1:3000/v1/key?code=${res.code}`,
+          url: `/v1/key?code=${res.code}`,
           method: 'GET',
           success: data=> {
             wx.setStorageSync('token', data.data.token)
             console.log(data)
-            if (!data.data.newUser) {
+            if (data.data.newUser) {
               self.updateUserInfo()
             }            
           },
@@ -35,7 +35,7 @@ App({
         wx.getUserInfo({
           success: res => {
             yf.request({
-              url: 'http://127.0.0.1:3000/v1/user',
+              url: '/v1/user',
               method: 'POST',
               data: res.userInfo,
               success: data => {
