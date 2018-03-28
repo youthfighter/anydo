@@ -1,4 +1,5 @@
 //index.js
+const yf = require('../../utils/yf.js')
 //获取应用实例
 const app = getApp()
 
@@ -8,10 +9,11 @@ Page({
     task:"",
     dateType:0,
     inputFocus:true,
+    typeList: [],
     tasks: [
       {
         task: [
-          { content: '111', type: '个人事务', time: '19:58' },
+          { content: '111', type: '个人事务', time: '2017-07-02' },
           { content: '222', type: '个人事务', time: '19:58' },
           { content: '333', type: '个人事务', time: '19:58' },
           { content: '444', type: '个人事务', time: '19:58' }
@@ -48,7 +50,8 @@ Page({
     ]
   },
   onLoad: function (options) {
-    console.log(123456)
+    console.log('inittype')
+    this.initType() //初始化任务类型
   },
   //事件处理函数
   showModalHandle: function(event) {
@@ -62,8 +65,10 @@ Page({
     })
   },
   chooseTypeHandle: function() {
+    let self = this
+    console.log('chooseTypeHandle', self.data.typeList)
     wx.showActionSheet({
-      itemList: ['个人事务', '工作项目', '杂货列表'],
+      itemList: self.data.typeList,
       success: function (res) {
         console.log(res.tapIndex)
       },
@@ -106,6 +111,20 @@ Page({
   },
   revertTaskHandle: function() {
     console.log('revert')
+  },
+  //初始化任务类型
+  initType: function() {
+    console.log('inittypes')
+    yf.request({
+      url: '/v1/types',
+      method: 'GET',
+      success: (data)=>{
+        console.log('data', data.data)
+        this.setData({
+          typeList: data.data
+        })
+      }
+    })
   },
   showModal: function (dateType) {
     this.setData({
@@ -160,7 +179,7 @@ Page({
     
   },
   saveTaskHandle: function() {
-    console.log('save',this.data.task, this.data.dateType);
+    this.saveTask(this.data.task, this.data.dateType)
     this.hideModalHandle();
   },
   taskChange: function(e) {
@@ -169,9 +188,31 @@ Page({
       task: value
     });
   },
-  onLoad: function () {
-    
-  },
-  getUserInfo: function(e) {
+  saveTask: function(content, dateType) {
+    wx.showLoading({
+      title: '加载中',
+    })
+    yf.request({
+      url: '/v1/task',
+      method: 'POST',
+      data:{
+        dateType,
+        content
+      },
+      success: data=>{
+        console.log(data)
+      },
+      fail: data=>{
+        wx.showToast({
+          title: '保存失败',
+          icon: 'none',
+          duration: 2000
+        })
+      },
+      complete: data=>{
+        wx.hideLoading()
+      }      
+
+    })
   }
 })
