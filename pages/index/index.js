@@ -66,7 +66,6 @@ Page({
   },
   chooseTypeHandle: function() {
     let self = this
-    console.log('chooseTypeHandle', self.data.typeList)
     wx.showActionSheet({
       itemList: self.data.typeList,
       success: function (res) {
