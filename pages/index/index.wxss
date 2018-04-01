@@ -2,7 +2,7 @@
 .date-list-item{
   line-height: 30px;
   color: #2AA0C6;
-  padding: 0.4rem 1rem;
+  padding: 0.6rem 1rem;
   font-weight: bold;
 }
 .task-list{

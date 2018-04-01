@@ -3,7 +3,7 @@
   <view wx:for="{{tasks}}" wx:for-item="task">
     <view class="as-flex-box date-list-item">
       <view class='flex-1' bindtap='toggleDate' data-type='{{task.type}}'>{{task.label}}</view>
-      <image wx-if="{{task.type != 2}}" style="width: 30px; height: 30px" 
+      <image wx-if="{{task.type != 3}}" style="width: 30px; height: 30px" 
         src="../../static/images/plus.png"
         bindtap="addHandle"
         data-type="{{task.type}}"
@@ -19,7 +19,7 @@
           <view class='text-2'>{{item.content}}</view>
           <view class='text-3'>
             <view wx:if="{{item.detailFlag}}">
-              <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+              <text class='font-weight'>{{item.type != '' ? item.type : '暂无分类'}}</text> | <text>{{item.createDatetimeStr}}</text>
             </view>
           </view>
         </view>
@@ -28,7 +28,7 @@
             <image src='../../static/images/edit.png' bindtap='editTaskHandle' data-content='{{item.content}}'></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/type.png' bindtap='chooseTypeHandle'></image>
+            <image src='../../static/images/type.png' bindtap='chooseTypeHandle' data-taskid="{{item.taskId}}"></image>
           </view>
           <view class='flex-1 control-icon'>
             <image src='../../static/images/time.png' bindtap='chooseDateHandle'></image>
@@ -50,7 +50,7 @@
           <view class='text-2 cancelTask' style='width: 15rem'>{{item.content}}</view>
           <view class='text-3'>
             <view wx:if="{{item.detailFlag}}">
-              <text class='font-weight'>{{item.type}}</text> | <text>{{item.time}}</text>
+              <text class='font-weight'>{{item.type != '' ? item.type : '暂无分类'}}</text> | <text>{{item.createDatetimeStr}}</text>
             </view>
           </view>
         </view>
@@ -58,7 +58,12 @@
         <image class='revertBtn' src='../../static/images/revent.png' bindtap='revertTaskHandle'></image>
       </view>
     </view>
-    
+    <view class='task-list' wx:if='{{task.detailFlag && task.task.length === 0 && task.cancelTask.length === 0}}'>
+      <view class='task-list-item'>
+        <view class='text-2'>暂无任务</view>
+        <view class='text-3'></view>
+      </view>
+    </view>    
   </view>
   <!--添加任务-->
   <view class='plus' bindtap="showModalHandle">+</view>
@@ -110,3 +115,11 @@
     </view>
   </view>
 </view>
+
+<!-- 任务详情模板  -->
+<template name="taskTemplate">
+  <view>
+    <text> {{index}}: {{msg}} </text>
+    <text> Time: {{time}} </text>
+  </view>
+</template>

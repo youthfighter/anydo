@@ -9,7 +9,7 @@ Page({
     task:"",
     dateType:0,
     inputFocus:true,
-    typeList: [],
+    typeList: [], //任务类型，onload中初始化
     tasks: [
       {
         task: [
@@ -52,6 +52,7 @@ Page({
   onLoad: function (options) {
     console.log('inittype')
     this.initType() //初始化任务类型
+    this.initClassifyTasks() //初始化首页任务分类
   },
   //事件处理函数
   showModalHandle: function(event) {
@@ -64,18 +65,36 @@ Page({
       task: ''
     })
   },
-  chooseTypeHandle: function() {
+  // 更新标签
+  updateTaskType: function(taskId, type) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/task/${taskId}`,
+      method: 'PUT',
+      data: { type },
+      success: (data) => {
+        console.log('updatetask', data.data)
+      },
+      complete: (data) =>{
+        wx.hideLoading()
+      }
+    })
+  },
+  // 选择任务标签
+  chooseTypeHandle: function(event) {
+    let taskId = event.target.dataset.taskid || 0
     let self = this
     wx.showActionSheet({
       itemList: self.data.typeList,
       success: function (res) {
-        console.log(res.tapIndex)
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
+        self.updateTaskType(taskId, self.data.typeList[res.tapIndex])
       }
     })
   },
+  //选择延迟标签
   chooseDateHandle: function() {
     wx.showActionSheet({
       itemList: ['推迟一天', '推迟两天', '推迟一周'],
@@ -121,6 +140,21 @@ Page({
         console.log('data', data.data)
         this.setData({
           typeList: data.data
+        })
+      }
+    })
+  },
+  //初始化首页任务分类
+  initClassifyTasks: function() {
+    console.log('initClassifyTasks')
+    let self = this
+    yf.request({
+      url: '/v1/classifyTasks',
+      method: 'GET',
+      success: (data) => {
+        console.log('initClassifyTasks', data.data)
+        self.setData({
+          tasks: data.data
         })
       }
     })
@@ -187,6 +221,10 @@ Page({
       task: value
     });
   },
+  // 通过方法 根据taskid修改taskList
+  updateTasksByTaskId: function(taskID, obj) {
+  },
+  // 保存任务
   saveTask: function(content, dateType) {
     wx.showLoading({
       title: '加载中',
