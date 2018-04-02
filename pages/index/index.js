@@ -85,9 +85,27 @@ Page({
       }
     })
   },
+  // 更新计划完成的时间
+  updatePlanDatetime: function (taskId, planDatetime) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/task/${taskId}`,
+      method: 'PUT',
+      data: { planDatetime },
+      success: (data) => {
+        console.log(data)
+      },
+      complete: (data) => {
+        wx.hideLoading()
+      }
+    })
+  },
   // 选择任务标签
   chooseTypeHandle: function(event) {
-    let taskId = event.target.dataset.taskid || 0
+    let taskId = event.target.dataset.taskid
     let self = this
     wx.showActionSheet({
       itemList: self.data.typeList,
@@ -97,10 +115,30 @@ Page({
     })
   },
   //选择延迟标签
-  chooseDateHandle: function() {
+  chooseDateHandle: function (event) {
+    let self = this
+    let taskId = event.target.dataset.taskid
+    let curPlanDatetime = event.target.dataset.plandatetime
     wx.showActionSheet({
       itemList: ['推迟一天', '推迟两天', '推迟一周'],
       success: function (res) {
+        let num = 0
+        switch(res.tapIndex)
+        {
+          case 0:
+            num = 1
+            break
+          case 1:
+            num = 2
+            break
+          case 2:
+            num = 7
+            break          
+        }
+
+        let newPlanDatetime = new Date(new Date(curPlanDatetime).getTime() + num * 1000 * 60 * 60 * 24)
+        console.log('newPlanDatetime',newPlanDatetime)
+        self.updatePlanDatetime(taskId, newPlanDatetime)
         console.log(res.tapIndex)
       },
       fail: function (res) {

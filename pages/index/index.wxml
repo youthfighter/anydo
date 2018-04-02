@@ -31,7 +31,7 @@
             <image src='../../static/images/type.png' bindtap='chooseTypeHandle' data-taskid="{{item.taskId}}"></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/time.png' bindtap='chooseDateHandle'></image>
+            <image src='../../static/images/time.png' bindtap='chooseDateHandle' data-taskid="{{item.taskId}}" data-plandatetime="{{item.planDatetime}}"></image>
           </view>
           <view class='flex-1 control-icon'>
             <image src='../../static/images/task-selected.png' bindtap='doneTaskHandle'></image>
