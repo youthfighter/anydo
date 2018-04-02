@@ -76,7 +76,9 @@ Page({
       method: 'PUT',
       data: { type },
       success: (data) => {
-        console.log('updatetask', data.data)
+        self.updateTasksByTaskId(taskId, {
+          type
+        })
       },
       complete: (data) =>{
         wx.hideLoading()
@@ -166,6 +168,7 @@ Page({
     })
   },
   addHandle: function(event) {
+    console.log(event.target.dataset.type)
     this.showModal(event.target.dataset.type)
   },
   addTag: function(event) {
@@ -222,10 +225,30 @@ Page({
     });
   },
   // 通过方法 根据taskid修改taskList
-  updateTasksByTaskId: function(taskID, obj) {
+  updateTasksByTaskId: function(taskId, obj) {
+    let flag = false
+    this.data.tasks.map((task)=>{
+      task.task.map(item => {
+        if (item.taskId === taskId) {
+          flag = true
+          for (let key in obj) {
+            item[key] = obj[key]
+          }
+        }
+
+        return item
+      })
+    })
+    console.log(this.data.tasks)
+    if (flag) {
+      this.setData({
+        tasks: this.data.tasks
+      })
+    }
   },
   // 保存任务
   saveTask: function(content, dateType) {
+    console.log(content, dateType)
     wx.showLoading({
       title: '加载中',
     })
@@ -237,7 +260,20 @@ Page({
         content
       },
       success: data=>{
-        console.log(data)
+        let dateType = data.data.dateType
+        if (dateType === 0) {
+          this.data.tasks[0].task.push(data.data)
+          this.data.tasks[0].detailFlag = true
+        } else if (dateType === 1) {
+          this.data.tasks[1].task.push(data.data)
+          this.data.tasks[1].detailFlag = true
+        } else if (dateType > 1) {
+          this.data.tasks[2].task.push(data.data)
+          this.data.tasks[2].detailFlag = true
+        }
+        this.setData({
+          tasks: this.data.tasks
+        })
       },
       fail: data=>{
         wx.showToast({
