@@ -50,7 +50,6 @@ Page({
     ]
   },
   onLoad: function (options) {
-    console.log('inittype')
     this.initType() //初始化任务类型
     this.initClassifyTasks() //初始化首页任务分类
   },
