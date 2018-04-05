@@ -25,7 +25,7 @@
         </view>
         <view class='as-flex-box' style="margin-top:0.5rem" wx:if="{{item.detailFlag}}">
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/edit.png' bindtap='editTaskHandle' data-content='{{item.content}}'></image>
+            <image src='../../static/images/edit.png' bindtap='editTaskHandle' data-taskcontent='{{item.content}}' data-taskid='{{item.taskId}}'></image>
           </view>
           <view class='flex-1 control-icon'>
             <image src='../../static/images/type.png' bindtap='chooseTypeHandle' data-taskid="{{item.taskId}}"></image>
@@ -34,10 +34,10 @@
             <image src='../../static/images/time.png' bindtap='chooseDateHandle' data-taskid="{{item.taskId}}" data-plandatetime="{{item.planDatetime}}"></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/task-selected.png' bindtap='doneTaskHandle'></image>
+            <image src='../../static/images/task-selected.png' bindtap='doneTaskHandle' data-taskid="{{item.taskId}}"></image>
           </view>
           <view class='flex-1 control-icon'>
-            <image src='../../static/images/cancel.png' bindtap='removeTaskHandle'></image>
+            <image src='../../static/images/cancel.png' bindtap='removeTaskHandle' data-taskid="{{item.taskId}}"></image>
           </view>
         </view>
       </view>
@@ -54,8 +54,8 @@
             </view>
           </view>
         </view>
-        <image class='deleteBtn' src='../../static/images/delete.png' bindtap='deleteTaskHandle'></image>
-        <image class='revertBtn' src='../../static/images/revent.png' bindtap='revertTaskHandle'></image>
+        <image class='deleteBtn' src='../../static/images/delete.png' bindtap='deleteTaskHandle' data-taskid="{{item.taskId}}"></image>
+        <image class='revertBtn' src='../../static/images/revent.png' bindtap='revertTaskHandle' data-taskid="{{item.taskId}}"></image>
       </view>
     </view>
     <view class='task-list' wx:if='{{task.detailFlag && task.task.length === 0 && task.cancelTask.length === 0}}'>
@@ -68,20 +68,20 @@
   <!--添加任务-->
   <view class='plus' bindtap="showModalHandle">+</view>
   <!--添加任务弹出层-->
-  <view class='task-content' wx:if="{{modalFlag}}">
+  <view class='task-content' wx:if="{{modalObj.modalFlag}}">
     <view class='as-flex-box content-header'>
       <view class='content-icon' bindtap="hideModalHandle">
         <image src="../../static/images/close.png"></image>
       </view>      
       <view class='flex-1'>
-      <input placeholder="我想..." value="{{task}}" class="things" bindinput="taskChange" focus="{{inputFocus}}" ></input>
+      <input placeholder="我想..." value="{{modalObj.taskContent}}" class="things" bindinput="taskChange" focus="{{modalObj.inputFocus}}" ></input>
       </view>      
       <view class='content-icon'>
-        <image src="../../static/images/voice.png" wx-if="{{task===''}}"></image>
-        <image src="../../static/images/checked.png" wx-if="{{task!==''}}" bindtap="saveTaskHandle"></image>
+        <image src="../../static/images/voice.png" wx-if="{{modalObj.taskContent===''}}" ></image>
+        <image src="../../static/images/checked.png" wx-if="{{modalObj.taskContent!==''}}" data-a="{{modalObj.taskContent}}" bindtap="saveTaskHandle"></image>
       </view> 
     </view>
-    <view class='content-body' wx:if="{{task ===''}}">
+    <view class='content-body' wx:if="{{modalObj.taskContent ===''}}">
       <view class='as-flex-box tag' bindtap='addTag' data-tag='呼叫'>
         <view class='content-icon'>
           <image src="../../static/images/call.png"></image>

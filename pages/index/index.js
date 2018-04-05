@@ -5,10 +5,14 @@ const app = getApp()
 
 Page({
   data: {
-    modalFlag:false,
-    task:"",
-    dateType:0,
-    inputFocus:true,
+    modalObj: {
+      modalFlag: false,
+      dateType: 0,
+      inputFocus: true,
+      taskContent: "",
+      taskId: null
+    },    
+        
     typeList: [], //任务类型，onload中初始化
     tasks: [
       {
@@ -59,9 +63,13 @@ Page({
   },
   hideModalHandle: function () {
     this.setData({
-      modalFlag: false,
-      dateType: 0,
-      task: ''
+      modalObj: {
+        modalFlag: false,
+        dateType: 0,
+        inputFocus: false,
+        taskContent: "",
+        taskId: null
+      }
     })
   },
   // 更新标签
@@ -75,9 +83,7 @@ Page({
       method: 'PUT',
       data: { type },
       success: (data) => {
-        self.updateTasksByTaskId(taskId, {
-          type
-        })
+        self.updateTasksByTaskId(taskId, {type})
       },
       complete: (data) =>{
         wx.hideLoading()
@@ -85,7 +91,25 @@ Page({
     })
   },
   // 更新计划完成的时间
-  updatePlanDatetime: function (taskId, planDatetime) {
+  updatePlanDatetime: function (taskId, num) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/delaytask/${taskId}`,
+      method: 'PUT',
+      data: { num },
+      success: (data) => {
+        self.initClassifyTasks()
+      },
+      complete: (data) => {
+        wx.hideLoading()
+      }
+    })
+  },
+  //更新任务内容
+  updateTaskContent: function (taskId, content) {
     let self = this
     wx.showLoading({
       title: '保存中...',
@@ -93,11 +117,113 @@ Page({
     yf.request({
       url: `/v1/task/${taskId}`,
       method: 'PUT',
-      data: { planDatetime },
+      data: { content },
       success: (data) => {
-        console.log(data)
+        self.updateTasksByTaskId(taskId, { content })
       },
       complete: (data) => {
+        wx.hideLoading()
+      }
+    })
+  },
+  //任务完成
+  doneTask: function (taskId) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/donetask/${taskId}`,
+      method: 'PUT',
+      success: (data) => {
+        wx.hideLoading()
+        if (data.statusCode === 200 || status === 302) {
+          self.initClassifyTasks()
+        } else {
+          wx.showToast({
+            title: data.data || '操作失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: (err) =>{
+        wx.hideLoading()
+      }
+    })
+  },
+  //移除任务
+  removeTask: function(taskId) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/removeTask/${taskId}`,
+      method: 'PUT',
+      success: (data) => {
+        wx.hideLoading()
+        if (data.statusCode === 200 || status === 302) {
+          self.initClassifyTasks()
+        } else {
+          wx.showToast({
+            title: data.data || '操作失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: (err) => {
+        wx.hideLoading()
+      }
+    })
+  },
+  revertTask: function (taskId) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/revertTask/${taskId}`,
+      method: 'PUT',
+      success: (data) => {
+        wx.hideLoading()
+        if (data.statusCode === 200 || status === 302) {
+          self.initClassifyTasks()
+        } else {
+          wx.showToast({
+            title: data.data || '操作失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: (err) => {
+        wx.hideLoading()
+      }
+    })
+  },
+  deleteTask: function (taskId) {
+    let self = this
+    wx.showLoading({
+      title: '保存中...',
+    })
+    yf.request({
+      url: `/v1/task/${taskId}`,
+      method: 'DELETE',
+      success: (data) => {
+        wx.hideLoading()
+        if (data.statusCode === 200 || status === 302) {
+          self.initClassifyTasks()
+        } else {
+          wx.showToast({
+            title: data.data || '操作失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
+      },
+      fail: (err) => {
         wx.hideLoading()
       }
     })
@@ -134,10 +260,7 @@ Page({
             num = 7
             break          
         }
-
-        let newPlanDatetime = new Date(new Date(curPlanDatetime).getTime() + num * 1000 * 60 * 60 * 24)
-        console.log('newPlanDatetime',newPlanDatetime)
-        self.updatePlanDatetime(taskId, newPlanDatetime)
+        self.updatePlanDatetime(taskId, num)
         console.log(res.tapIndex)
       },
       fail: function (res) {
@@ -145,7 +268,9 @@ Page({
       }
     })
   },
-  doneTaskHandle: function() {
+  doneTaskHandle: function (event) {
+    let self = this
+    let taskId = event.target.dataset.taskid
     wx.showModal({
       title: '提示',
       content: '确认该项任务已完成？',
@@ -153,21 +278,22 @@ Page({
       cancelText: "取消",
       success: function (res) {
         if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
+          self.doneTask(taskId)
         }
       }
     })
   },
-  removeTaskHandle: function() {
-    console.log('remove')
+  removeTaskHandle: function(event) {
+    let taskId = event.target.dataset.taskid
+    this.removeTask(taskId)
   },
-  deleteTaskHandle: function() {
-    console.log('delete')
+  deleteTaskHandle: function (event) {
+    let taskId = event.target.dataset.taskid
+    this.deleteTask(taskId)
   },
-  revertTaskHandle: function() {
-    console.log('revert')
+  revertTaskHandle: function (event) {
+    let taskId = event.target.dataset.taskid
+    this.revertTask(taskId)
   },
   //初始化任务类型
   initType: function() {
@@ -191,39 +317,44 @@ Page({
       url: '/v1/classifyTasks',
       method: 'GET',
       success: (data) => {
-        console.log('initClassifyTasks', data.data)
+        data.data[0].detailFlag = true
         self.setData({
           tasks: data.data
         })
       }
     })
   },
-  showModal: function (dateType) {
+  showModal: function (options = {}) {    
     this.setData({
-      modalFlag: true,
-      dateType: dateType || 0
+      modalObj: {
+        modalFlag: true,
+        dateType: options.dateType || 0,
+        inputFocus: true,
+        taskContent: options.taskContent || "",
+        taskId: options.taskId || null
+      }
     })
   },
   addHandle: function(event) {
-    console.log(event.target.dataset.type)
-    this.showModal(event.target.dataset.type)
+    this.showModal({
+      dateType: event.target.dataset.type
+    })
   },
   addTag: function(event) {
     let tag = event.currentTarget.dataset.tag;
     if (tag) {
       this.setData({
-        task: tag + " ",
-        inputFocus: true
+        'modalObj.taskContent': tag + " ",
+        'modalObj.inputFocus': true
       })
     }
   },
   //任务编辑
   editTaskHandle: function (event){
-    let content = event.currentTarget.dataset.content;
-    this.setData({
-      task: content
-    })
-    this.showModal()
+    let taskContent = event.currentTarget.dataset.taskcontent
+    let taskId = event.currentTarget.dataset.taskid;
+    console.log({ taskId, taskContent })
+    this.showModal({ taskId, taskContent})
   },
   //点击时间分类
   toggleDate: function(event) {
@@ -252,13 +383,19 @@ Page({
     
   },
   saveTaskHandle: function() {
-    this.saveTask(this.data.task, this.data.dateType)
+    let dateType = this.data.modalObj.dateType || 0
+    console.log(this.data.modalObj.taskId)
+    if (this.data.modalObj.taskId) {
+      this.updateTaskContent(this.data.modalObj.taskId, this.data.modalObj.taskContent)
+    } else {
+      this.saveTask(this.data.modalObj.taskContent, dateType)
+    }    
     this.hideModalHandle();
   },
   taskChange: function(e) {
     let value = e.detail.value;
     this.setData({
-      task: value
+      'modalObj.taskContent': value
     });
   },
   // 通过方法 根据taskid修改taskList
@@ -272,16 +409,37 @@ Page({
             item[key] = obj[key]
           }
         }
-
+        return item
+      })
+      task.cancelTask.map(item => {
+        if (item.taskId === taskId) {
+          flag = true
+          for (let key in obj) {
+            item[key] = obj[key]
+          }
+        }
         return item
       })
     })
-    console.log(this.data.tasks)
     if (flag) {
       this.setData({
         tasks: this.data.tasks
       })
     }
+  },
+  //根据taskid找到task
+  getTaskByTaskId: function(taskId) {
+    let targetTask
+    for(let i=0;i<this.data.tasks.length;i++){
+      let ot = this.data.tasks[i]
+      for (let j = 0; j < ot.task.length;j++){
+        if (this.data.tasks[i].task.taskId === taskId) {
+          targetTask = this.data.tasks[i].task
+          break
+        }
+      }
+    }
+    return targetTask
   },
   // 保存任务
   saveTask: function(content, dateType) {
@@ -299,13 +457,13 @@ Page({
       success: data=>{
         let dateType = data.data.dateType
         if (dateType === 0) {
-          this.data.tasks[0].task.push(data.data)
+          this.data.tasks[0].task.unshift(data.data)
           this.data.tasks[0].detailFlag = true
         } else if (dateType === 1) {
-          this.data.tasks[1].task.push(data.data)
+          this.data.tasks[1].task.unshift(data.data)
           this.data.tasks[1].detailFlag = true
         } else if (dateType > 1) {
-          this.data.tasks[2].task.push(data.data)
+          this.data.tasks[2].task.unshift(data.data)
           this.data.tasks[2].detailFlag = true
         }
         this.setData({
