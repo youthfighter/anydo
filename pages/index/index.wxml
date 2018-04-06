@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="date-list">
-  <view wx:for="{{tasks}}" wx:for-item="task">
+  <view wx:for="{{tasks}}" wx:for-item="task" wx:key="{{index}}">
     <view class="as-flex-box date-list-item">
       <view class='flex-1' bindtap='toggleDate' data-type='{{task.type}}'>{{task.label}}</view>
       <image wx-if="{{task.type != 3}}" style="width: 30px; height: 30px" 
@@ -11,7 +11,8 @@
     </view>
     <view class='task-list' wx:if='{{task.detailFlag}}'>
       <view wx:for="{{task.task}}" 
-      wx:for-item="item" 
+      wx:for-item="item"
+      wx:key="{{index}}"
       class='task-list-item' 
       style='{{item.detailFlag == true ? "border:none" : "border-bottom:1px solid #f0f0f0"}}'
       >
@@ -44,7 +45,8 @@
     </view>
     <view class='task-list' wx:if='{{task.detailFlag}}'>
       <view wx:for="{{task.cancelTask}}" 
-      wx:for-item="item" 
+      wx:for-item="item"
+      wx:key="{{index}}" 
       class='task-list-item' style='position:relative'>
         <view data-index='{{index}}' data-type='{{type}}'>
           <view class='text-2 cancelTask' style='width: 15rem'>{{item.content}}</view>

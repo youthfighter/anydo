@@ -14,44 +14,7 @@ Page({
     },    
         
     typeList: [], //任务类型，onload中初始化
-    tasks: [
-      {
-        task: [
-          { content: '111', type: '个人事务', time: '2017-07-02' },
-          { content: '222', type: '个人事务', time: '19:58' },
-          { content: '333', type: '个人事务', time: '19:58' },
-          { content: '444', type: '个人事务', time: '19:58' }
-        ],
-        cancelTask: [
-          { content: '444', type: '个人事务', time: '19:58' }
-        ],
-        type: 0,
-        label: '今日',
-        detailFlag: false
-      },
-      {
-        task: [
-          { content: '123', type: '个人事务', time: '19:58' },
-          { content: '222', type: '个人事务', time: '19:58' },
-          { content: '333', type: '个人事务', time: '19:58' },
-          { content: '444', type: '个人事务', time: '19:58' }
-        ],
-        type: 1,
-        label: '明日',
-        detailFlag: false
-      },
-      {
-        task: [
-          { content: '123', type: '个人事务', time: '19:58' },
-          { content: '222', type: '个人事务', time: '19:58' },
-          { content: '333', type: '个人事务', time: '19:58' },
-          { content: '444', type: '个人事务', time: '19:58' }
-        ],
-        type: 2,
-        label: '已过期',
-        detailFlag: false
-      }
-    ]
+    tasks: []
   },
   onLoad: function (options) {
     this.initType() //初始化任务类型

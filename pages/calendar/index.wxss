@@ -39,11 +39,11 @@ scroll-view{
   top: 13px;
   left: 16px;
 }
-.pass-times .task-content{
-  color: #adadad
+.pass-times{
+  color: #adadad !important;
 }
 .pass-times .date{
-  color: #bebebe;
+  color: #bebebe !important;
 }
 .cur-date{
   color: #2AA0C6 !important;
