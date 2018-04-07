@@ -248,10 +248,6 @@ Page({
             break          
         }
         self.updatePlanDatetime(taskId, num)
-        console.log(res.tapIndex)
-      },
-      fail: function (res) {
-        console.log(res.errMsg)
       }
     })
   },
@@ -284,12 +280,10 @@ Page({
   },
   //初始化任务类型
   initType: function() {
-    console.log('inittypes')
     yf.request({
       url: '/v1/types',
       method: 'GET',
       success: (data)=>{
-        console.log('data', data.data)
         this.setData({
           typeList: data.data
         })
@@ -340,7 +334,6 @@ Page({
   editTaskHandle: function (event){
     let taskContent = event.currentTarget.dataset.taskcontent
     let taskId = event.currentTarget.dataset.taskid;
-    console.log({ taskId, taskContent })
     this.showModal({ taskId, taskContent})
   },
   //点击时间分类
@@ -355,7 +348,6 @@ Page({
   toggleTask: function(event) {
     let index = event.currentTarget.dataset.index || 0
     let type = event.currentTarget.dataset.type || 0
-    console.log(index, type)
     let key = `tasks[${type}].task`
     this.data.tasks[type].task.forEach((item, i)=>{
       if (i === index) {
@@ -371,7 +363,6 @@ Page({
   },
   saveTaskHandle: function() {
     let dateType = this.data.modalObj.dateType || 0
-    console.log(this.data.modalObj.taskId)
     if (this.data.modalObj.taskId) {
       this.updateTaskContent(this.data.modalObj.taskId, this.data.modalObj.taskContent)
     } else {
