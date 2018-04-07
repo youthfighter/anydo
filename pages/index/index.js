@@ -1,3 +1,4 @@
+
 //index.js
 const yf = require('../../utils/yf.js')
 //获取应用实例
@@ -14,9 +15,32 @@ Page({
     },    
         
     typeList: [], //任务类型，onload中初始化
-    tasks: []
+    tasks: [
+      {
+        task: [],
+        cancelTask: [],
+        type: 0,
+        label: '今日',
+        detailFlag: true
+      }, {
+        task: [],
+        cancelTask: [],
+        type: 1,
+        label: '明日'
+      }, {
+        task: [],
+        cancelTask: [],
+        type: 2,
+        label: '未来'
+      }, {
+        task: [],
+        cancelTask: [],
+        type: 3,
+        label: '已过期'
+      }
+    ]
   },
-  onLoad: function (options) {
+  onShow: function (options) {
     this.initType() //初始化任务类型
     this.initClassifyTasks() //初始化首页任务分类
   },
@@ -274,7 +298,6 @@ Page({
   },
   //初始化首页任务分类
   initClassifyTasks: function() {
-    console.log('initClassifyTasks')
     let self = this
     yf.request({
       url: '/v1/classifyTasks',
@@ -284,6 +307,7 @@ Page({
         self.setData({
           tasks: data.data
         })
+        app.globalData.tasksDataChangeFlag = true
       }
     })
   },
@@ -388,6 +412,7 @@ Page({
       this.setData({
         tasks: this.data.tasks
       })
+      app.globalData.tasksDataChangeFlag = true
     }
   },
   //根据taskid找到task
@@ -406,7 +431,6 @@ Page({
   },
   // 保存任务
   saveTask: function(content, dateType) {
-    console.log(content, dateType)
     wx.showLoading({
       title: '加载中',
     })
@@ -432,6 +456,7 @@ Page({
         this.setData({
           tasks: this.data.tasks
         })
+        app.globalData.tasksDataChangeFlag = true
       },
       fail: data=>{
         wx.showToast({

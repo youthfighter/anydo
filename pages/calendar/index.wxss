@@ -48,3 +48,9 @@ scroll-view{
 .cur-date{
   color: #2AA0C6 !important;
 }
+.no-data{
+  display: block;
+  width: 10rem;
+  height: 6.6rem;
+  margin: 10rem auto 0;
+}

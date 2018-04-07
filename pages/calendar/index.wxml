@@ -1,3 +1,7 @@
+<block wx:if="{{dataLoadErrorFlag}}">
+<image class="no-data" src="../../static/images/nodata.png"></image>
+</block>
+<block wx:else>
 <scroll-view scroll-y scroll-into-view="dateItem{{curItem}}">
   <view id="dateItem{{index}}" class="date-item {{item.dateType < 0?'pass-times':''}}" wx:for="{{taskList}}"
     wx:key="{{index}}">
@@ -19,3 +23,4 @@
     </view>
   </view>
 </scroll-view>
+</block>

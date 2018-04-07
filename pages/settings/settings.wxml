@@ -1,4 +1,58 @@
-<view class='container'>
-  <navigator class='task-item' url='../about/about'>关于</navigator>
-  <navigator class='task-item' url='../reback/reback'>反馈</navigator> 
+<view class='header'>
+  <view class='avatar'>
+    <image src="{{userinfo.avatarUrl}}"></image>
+  </view>
+  <view class='username'>{{userinfo.nickName}}</view>
+
+  <!-- <navigator class='task-item' url='../about/about'>关于</navigator>
+  <navigator class='task-item' url='../reback/reback'>反馈</navigator>  -->
+</view>
+<view class='body'>
+  <view class='info-item'>
+    <view class='title'>我的任务</view>
+    <view class='content'>
+      <view class='task-ul as-flex-box'>
+          <view class='task-li flex-1'>
+            <view class='task-num'>{{task.all}}</view>
+            <view class='task-dec'>新建任务</view>
+          </view>
+          <view class='task-li flex-1'>
+            <view class='task-num'>{{task.done}}</view>
+                <view class='task-dec'>已完成</view>
+              </view>
+          <view class='task-li flex-1'>
+            <view class='task-num'>{{task.todo}}</view>
+              <view class='task-dec'>待完成</view>
+            </view>
+          <view class='task-li flex-1'>
+            <view class='task-num'>{{task.expire}}</view>
+              <view class='task-dec'>已过期</view>
+            </view>
+      </view>
+    </view>
+  </view>
+    <view class='info-item'>
+    <view class='title'>其它</view>
+    <view class='content'>
+      <view class='as-flex-box'>
+        <view class='flex-1'>
+          
+          <navigator url='../about/about'>
+            <image src='../../static/images/about.png' class='icon'></image>
+            <view class='task-dec'>关于</view>
+          </navigator>
+        </view>
+        <view class='flex-1'>
+          <navigator url='../feedback/feedback'>
+            <image src='../../static/images/feedback.png' class='icon'></image>
+            <view class='task-dec'>反馈</view>
+          </navigator>
+        </view>
+        <view class='flex-1'>
+        </view>
+        <view class='flex-1'>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

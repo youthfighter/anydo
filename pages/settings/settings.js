@@ -1,11 +1,16 @@
 // pages/settings/settings.js
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    userinfo:{
+      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJqiaebzPJ7C2WMszs9rrPf1N2WGBxqJAYyvORjC9sLic7L5DnWyT8NicOBqf7lNvFRBVaKhe8HQBx5A/0',
+      nickName: '李林军'
+    },
+    task: {
+      all: 102,
+      todo: 12,
+      done: 0,
+      expire: 20
+    }
   },
 
   /**

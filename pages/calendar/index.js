@@ -2,110 +2,11 @@
 const yf = require('../../utils/yf.js')
 Page({
   data: {
-    taskList:[{
-      date: '2017年10月11日 周三',
-      length: 2,
-      status: '1', //1 pass 2 future
-      tasks: [
-        {
-          status: '1',
-          content: '浦发银行信用卡还款'
-        },
-        {
-          status: '0',
-          content: '浦发银行信用卡还款'
-        },
-      ]
-    },
-      {
-        date: '2017年10月11日 周三',
-        length: 2,
-        status: '1',
-        tasks: [
-          {
-            status: '1',
-            content: '浦发银行信用卡还款'
-          },
-          {
-            status: '0',
-            content: '浦发银行信用卡还款'
-          },
-        ]
-      },
-      {
-        date: '2017年10月11日 周三',
-        length: 2,
-        status: '1',
-        tasks: [
-          {
-            status: '1',
-            content: '浦发银行信用卡还款'
-          },
-          {
-            status: '0',
-            content: '浦发银行信用卡还款'
-          },
-        ]
-      },
-      {
-        date: '2017年10月11日 周三',
-        length: 2,
-        status: '1',
-        tasks: [
-          {
-            status: '1',
-            content: '浦发银行信用卡还款'
-          },
-          {
-            status: '0',
-            content: '浦发银行信用卡还款'
-          },
-        ]
-      },
-      {
-        date: '2017年10月11日 周三',
-        length: 2,
-        status: '1',
-        tasks: [
-          {
-            status: '1',
-            content: '浦发银行信用卡还款'
-          },
-          {
-            status: '0',
-            content: '浦发银行信用卡还款'
-          },
-        ]
-      },
-      {
-        date: '2017年10月11日 周三',
-        length: 2,
-        status: '2',
-        tasks: [
-          {
-            status: '1',
-            content: '浦发银行信用卡还款'
-          },
-          {
-            status: '0',
-            content: '浦发银行信用卡还款'
-          },
-        ]
-      },
-    {
-      date: '2017年10月12日 周三',
-      length: 1,
-      status: '3',
-      tasks: [
-        {
-          status: '0',
-          content: '浦发银行信用卡还款'
-        }
-      ]
-    }],
-    curItem: 0
+    taskList:[],
+    curItem: 0,
+    dataLoadErrorFlag: false
   },
-  onLoad: function (options) {
+  onShow: function (options) {
     this.initDateTasks()
   },
   //任务完成点击事件
@@ -154,6 +55,7 @@ Page({
   },
   //初始化数据
   initDateTasks() {
+    let self = this
     wx.showLoading({
       title: '加载中...',
     })
@@ -165,7 +67,11 @@ Page({
           taskList: data.data.taskList,
           curItem: data.data.curItem
         })
-        console.log(data)
+      },
+      fail: (data) => {
+        self.setData({
+          dataLoadErrorFlag: true
+        })
       },
       complete: (data) => {
         wx.hideLoading()

@@ -1,6 +1,5 @@
 //app.js
 const yf = require('./utils/yf.js')
-console.log(yf.request)
 App({
   onLaunch: function () {
     // 登录
@@ -25,7 +24,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    tasksDataChangeFlag: false
   },
   //完善用户信息
   updateUserInfo: function() {
