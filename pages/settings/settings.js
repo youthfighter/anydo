@@ -1,4 +1,5 @@
 // pages/settings/settings.js
+const yf = require('../../utils/yf.js')
 Page({
   data: {
     userinfo:{
@@ -6,66 +7,57 @@ Page({
       nickName: '李林军'
     },
     task: {
-      all: 102,
-      todo: 12,
+      all: 0,
+      todo: 0,
       done: 0,
-      expire: 20
+      expire: 0
     }
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.getuserInfo()
+    this.initTasksInfo()
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
+  //获取用户信息
+  getuserInfo() {
+    yf.request({
+      url: `/v1/user`,
+      method: 'GET',
+      success: (data) => {
+        if (data.data.user) {
+          self.setData({
+            userinfo: data.data.user
+          })
+        }
+      },
+      complete: (data) => {
+        wx.hideLoading()
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  //初始化任务完成信息
+  initTasksInfo () {
+    let self = this
+    wx.showLoading({
+      title: '数据获取中...',
+    })
+    yf.request({
+      url: `/v1/taskinfo`,
+      method: 'GET',
+      success: (data) => {
+        wx.hideLoading()
+        if (data.data.task) {
+          self.setData({
+            task: data.data.task
+          })
+        }
+      },
+      complete: (data) => {
+        wx.hideLoading()
+      }
+    })
   }
 })

@@ -11,13 +11,9 @@ App({
           method: 'GET',
           success: data=> {
             wx.setStorageSync('token', data.data.token)
-            console.log(data)
             if (data.data.newUser) {
               self.updateUserInfo()
             }            
-          },
-          fail: err=> {
-            console.log(err)
           }
         })
       }
@@ -39,9 +35,6 @@ App({
               data: res.userInfo,
               success: data => {
                 console.log(data)
-              },
-              fail: err => {
-                console.log(err)
               }
             })
           }
