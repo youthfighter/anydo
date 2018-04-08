@@ -21,7 +21,7 @@ Page({
     this.getuserInfo()
     this.initTasksInfo()
   },
-  //获取用户信息
+  //获取用户信息 cc
   getuserInfo() {
     yf.request({
       url: `/v1/user`,
