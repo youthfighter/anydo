@@ -2,7 +2,7 @@
   <view class='avatar'>
     <image src="{{userinfo.avatarUrl}}"></image>
   </view>
-  <view class='username'>{{userinfo.nickName}}</view>
+  <view class='username'>{{userinfo.nickname}}</view>
 
   <!-- <navigator class='task-item' url='../about/about'>关于</navigator>
   <navigator class='task-item' url='../reback/reback'>反馈</navigator>  -->

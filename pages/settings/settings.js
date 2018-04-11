@@ -3,8 +3,8 @@ const yf = require('../../utils/yf.js')
 Page({
   data: {
     userinfo:{
-      avatarUrl: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJqiaebzPJ7C2WMszs9rrPf1N2WGBxqJAYyvORjC9sLic7L5DnWyT8NicOBqf7lNvFRBVaKhe8HQBx5A/0',
-      nickName: '李林军'
+      avatarUrl: '',
+      nickname: ''
     },
     task: {
       all: 0,
@@ -23,6 +23,7 @@ Page({
   },
   //获取用户信息 cc
   getuserInfo() {
+    let self = this
     yf.request({
       url: `/v1/user`,
       method: 'GET',
