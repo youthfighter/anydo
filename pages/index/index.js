@@ -297,11 +297,18 @@ Page({
       url: '/v1/classifyTasks',
       method: 'GET',
       success: (data) => {
-        data.data[0].detailFlag = true
-        self.setData({
-          tasks: data.data
-        })
-        app.globalData.tasksDataChangeFlag = true
+        if (Array.isArray(data.data)) {
+          data.data[0].detailFlag = true
+          self.setData({
+            tasks: data.data
+          })
+        } else {
+          wx.showToast({
+            title: data.data || '操作失败',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       }
     })
   },

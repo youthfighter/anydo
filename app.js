@@ -33,8 +33,12 @@ App({
               url: '/v1/user',
               method: 'POST',
               data: res.userInfo,
-              success: data => {
-                console.log(data)
+              fail (){
+                wx.showToast({
+                  title: '获取用户信息失败',
+                  icon: 'none',
+                  duration: 2000
+                })
               }
             })
           }
