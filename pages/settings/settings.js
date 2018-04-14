@@ -60,5 +60,42 @@ Page({
         wx.hideLoading()
       }
     })
+  },
+  //授权按钮
+  authorizationHandle () {
+    this.updateUserInfo()
+  },
+  //完善用户信息
+  updateUserInfo: function () {
+    let self = this
+    wx.authorize({
+      scope: 'scope.userInfo',
+      success(res) {
+        wx.getUserInfo({
+          success: res => {
+            yf.request({
+              url: '/v1/user',
+              method: 'POST',
+              data: res.userInfo,
+              success: data => {
+                wx.showToast({
+                  title: '授权成功',
+                  icon: 'success',
+                  duration: 3000
+                })
+                self.getuserInfo()
+              }
+            })
+          }
+        })
+      },
+      fail(data){
+        wx.showToast({
+          title: '您之前拒绝了授权，请稍后再尝试重新授权。',
+          icon: 'none',
+          duration: 3000
+        })
+      }
+    })
   }
 })

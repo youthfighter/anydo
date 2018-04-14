@@ -1,11 +1,8 @@
 <view class='header'>
   <view class='avatar'>
-    <image src="{{userinfo.avatarUrl}}"></image>
+    <image src="{{userinfo.avatarUrl || '../../static/images/nologin.png'}}"></image>
   </view>
-  <view class='username'>{{userinfo.nickname}}</view>
-
-  <!-- <navigator class='task-item' url='../about/about'>关于</navigator>
-  <navigator class='task-item' url='../reback/reback'>反馈</navigator>  -->
+  <view class='username'>{{userinfo.nickname||'游客'}}</view>
 </view>
 <view class='body'>
   <view class='info-item'>
@@ -35,8 +32,13 @@
     <view class='title'>其它</view>
     <view class='content'>
       <view class='as-flex-box'>
-        <view class='flex-1'>
-          
+        <view class='flex-1' wx:if='{{!userinfo.nickname}}'>          
+          <view  bindtap='authorizationHandle'>
+            <image src='../../static/images/authorization.png' class='icon'></image>
+            <view class='task-dec'>授权</view>
+          </view>
+        </view>
+        <view class='flex-1'>          
           <navigator url='../about/about'>
             <image src='../../static/images/about.png' class='icon'></image>
             <view class='task-dec'>关于</view>
@@ -48,7 +50,7 @@
             <view class='task-dec'>反馈</view>
           </navigator>
         </view>
-        <view class='flex-1'>
+        <view class='flex-1' wx:if='{{userinfo.nickname}}'>
         </view>
         <view class='flex-1'>
         </view>
