@@ -63,15 +63,17 @@ Page({
       url: '/v1/dateTasks',
       method: 'GET',
       success: (data) => {
-        this.setData({
-          taskList: data.data.taskList,
-          curItem: data.data.curItem
-        })
-      },
-      fail: (data) => {
-        self.setData({
-          dataLoadErrorFlag: true
-        })
+        if (data.data.taskList && data.data.taskList.length>0) {
+          this.setData({
+            taskList: data.data.taskList,
+            curItem: data.data.curItem
+          })
+        } else {
+          self.setData({
+            dataLoadErrorFlag: true
+          })
+        }
+
       },
       complete: (data) => {
         wx.hideLoading()
