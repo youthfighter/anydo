@@ -34,6 +34,7 @@
         "iconPath": "/static/images/settings.png",
         "selectedIconPath": "/static/images/settings-selected.png"
       }
-    ]
+    ],
+    "debug": true
   }
 }
